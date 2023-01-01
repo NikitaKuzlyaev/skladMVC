@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Изменение каталога";
+}
+
+
+<body>
+
+    <h2>Изменение каталога</h2>
+    <p>Id текущего каталога @ViewBag.CurDirId</p>
+
+    <form method="post">
+
+        <table>
+            <td><input type="text" value="@ViewBag.CurDirId" name="curDirId" hidden></td>
+
+            <tr>
+                <td>Название каталога:</td>
+                <td><input type="text" name="name" value="@ViewBag.Catalog.Name" minlength="1" required></td>
+                <td>Картинка:</td>
+                <td><input type="text" name="logo" value="@ViewBag.Catalog.Logo" minlength="1" required></td>
+            </tr>
+
+            <p>
+            <td><input type="submit" value="Продолжить" /></td>
+            </p>
+
+        </table>
+
+    </form>
+
+    <h3>Измененить родителя</h3>
+    @foreach (Catalog cat in ViewBag.NotMyChild)
+    {
+        <a href="/Catalogs/ReplaceCatalog/@ViewBag.CurDirId/@cat.Id">@cat.Name</a>
+        <br>
+    }
+
+</body>
+
+

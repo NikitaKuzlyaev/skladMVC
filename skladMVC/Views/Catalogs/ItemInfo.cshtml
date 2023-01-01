@@ -1,0 +1,69 @@
+﻿@model skladMVC.Models.CartItem
+@{
+    ViewData["Title"] = "Просмотр товара";
+}
+
+<body>
+
+    <h4><b>@ViewBag.item.Name</b></h4>
+
+    <div id="parent">
+
+        <div id="wide_2">
+            <img style="width: 50%;" src=@ViewBag.item.Logo alt='Logo.png' />
+        </div>
+
+        <div id="narrow_2">
+            <p><b>Цена: @ViewBag.item.Cost</b></p>
+            <p>Осталось штук: @ViewBag.item.Quantity</p>
+        </div>
+
+        <div id="narrow_3">
+
+            @if (@ViewBag.item.Quantity == 0)
+            {
+                <p><b>Нет в наличии</b></p>
+            }
+            else{
+                @if (ViewBag.Role != null && ViewBag.Role != "NOT FOUND")
+                {
+                    <form asp-action="AddToCart" asp-controller="Accounts">
+                        <p> 
+                        <input type="number" asp-for="UserId" value="@ViewBag.User.Id" id="UserId" name="UserId" hidden />
+                        <input type="number" asp-for="ItemId" value="@ViewBag.item.Id" id="ItemId" name="ItemId" hidden />
+
+                        <label asp-for="Amount">Количество</label><br />
+                        <input type="number" asp-for="Amount" step="1" min="1" max="@ViewBag.item.Quantity" value="1" id="Amount" name="Amount" />
+                        </p>
+                        <p>
+                        <input type="submit" value="В корзину" />
+                        </p>
+                    </form>
+                }
+            }
+        </div>
+    </div>
+
+    <hr>
+
+    <p><b>Описание:</b></p>
+    <p>@ViewBag.item.Description</p>
+
+    @if (ViewBag.item.Flag == "wood")
+    {
+        <p>Материал: @ViewBag.Material</p>
+        <p>Ширина: @ViewBag.item.Width мм</p>
+        <p>Высота: @ViewBag.item.Height мм</p>
+        <p>Сорт: @ViewBag.item.Quality</p>       
+    }
+    else
+    {
+        <p>Длина: @ViewBag.item.Length мм</p>
+        <p>Ширина: @ViewBag.item.Width мм</p>
+        <p>Высота: @ViewBag.item.Height мм</p>
+    }
+
+
+</body>
+
+

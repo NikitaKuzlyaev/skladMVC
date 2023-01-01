@@ -1,0 +1,72 @@
+﻿@model skladMVC.Models.Order
+@{
+    ViewData["Title"] = "Оформление заказа";
+}
+
+
+<body>
+
+    <div id="hr"><hr></div>
+    <h4>Подтверждение заказа</h4>
+    <h5>Всего @ViewBag.Count товаров на общую сумму @ViewBag.Sum рублей</h5>
+
+    <table>
+        <tr>
+            <td>Id товара</td>
+            <td>Количество</td>
+            <td>Цена</td>
+        </tr>
+
+        <div id="hr"><hr></div>
+
+        @foreach (CartItem ci in ViewBag.itemsInCart)
+        {
+            foreach (Item it in ViewBag.items)
+            {
+                if (ci.ItemId == it.Id)
+                {
+                    <tr>
+                        <td>@it.Name</td>
+                        <td>@ci.Amount</td>
+
+                        @if (ci.Amount == 1)
+                        {
+                            <td><b>@it.Cost</b></td>
+                        }
+                        else
+                        {
+                            <td>@ci.Amount * @it.Cost = <b>@(ci.Amount * it.Cost)</b></td>
+                        }
+                    </tr>
+
+                    break;
+                }
+            }
+        }
+
+    </table>
+
+    <div id="hr"><hr></div>
+
+    <form asp-action="ConfirmCartAccepted" asp-controller="accounts">
+        <p>
+            <input type="number" asp-for="Amount" value="@ViewBag.Sum" id="Amount" name="Amount" hidden />
+            <input type="number" asp-for="UserId" value="@ViewBag.User.Id" id="UserId" name="UserId" hidden />
+            <input type="text" asp-for="ItemsId" value="@ViewBag.itemsString" id="ItemsId" name="ItemsId" hidden />
+            <input type="text" asp-for="AmountItems" value="@ViewBag.amountString" id="AmountItems" name="AmountItems" hidden />
+            <p>Адрес доставки:</p>
+
+            <input type="text" asp-for="Address" id="Address" name="Address" />
+            <p>Контакты для связи или комментарий:</p>
+
+            <p><input type="text" asp-for="Comment" id="Comment" name="Comment" /></p>
+
+        </p>
+
+        <p>
+            <input type="submit" value="Подтвердить" />
+        </p>
+
+    </form>
+
+</body>

@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Редактирование статуса";
+}
+
+<body>
+
+    <h2>Редактирование статуса</h2>
+
+    <form method="post">
+
+        <table>
+            <tr>
+                <td>Название статуса:</td>
+                <td><input type="text" name="Name" value="@ViewBag.Status.Name" minlength="1" required></td>
+            </tr>
+
+            <p>
+                <td><input type="submit" value="Добавить" /></td>
+            </p>
+
+        </table>
+
+    </form>
+
+</body>
+
+

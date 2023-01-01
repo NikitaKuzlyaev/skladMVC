@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Новый товар";
+}
+
+<body>
+    
+    <h2>Добавление каталога</h2>
+    <p>Id текущего каталога @ViewBag.CurDirId</p>
+
+    <form method="post">
+
+        <table>
+            <td><input type="text" value="@ViewBag.CurDirId" name="curDirId" hidden></td>
+            <tr>
+                <td>Название каталога:</td>
+                <td><input type="text" name="name" minlength="1" required></td>
+            </tr>
+            
+        <p><td><input type="submit" value="Продолжить" /></td></p>
+
+    </form>
+
+</body>
+
+

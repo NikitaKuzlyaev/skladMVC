@@ -1,0 +1,33 @@
+﻿@{
+     ViewData["Title"] = "Редактировать вакансию";
+}
+
+<body>
+    
+    <h2>Редактирование вакансии</h2>
+
+    <form method="post">
+
+        <table>
+            <tr>
+                <td>Название вакансии:</td>
+                <td><input type="text" value="@ViewBag.job.Name" name="Name" minlength="1" required></td>
+            </tr>
+
+            <tr>
+                <td>Описание:</td>
+                <td><input type="text" value="@ViewBag.job.Description" name="Description"></td>
+            </tr>
+
+            <tr>
+                <td>Ссылка на изображение:</td>
+                <td><input type="text" value="@ViewBag.job.Logo" name="Logo"></td>
+            </tr>
+            
+
+            <p><td><input type="submit" value="Продолжить" /></td></p>
+
+        </table>
+    </form>
+
+</body>

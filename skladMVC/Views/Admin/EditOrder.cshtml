@@ -1,0 +1,68 @@
+﻿@{
+    ViewData["Title"] = "Редактирование материала";
+}
+
+
+<body>
+
+    <h2>Редактирование Заказа</h2>
+
+    <form method="post">
+
+        <p>
+            <label for="StatusId">Статус:</label>
+            <select id="StatusId" name="StatusId">
+                @foreach (Status status in ViewBag.Statuses)
+                {
+                    <option value=@status.Id>@status.Name</option>
+                }
+            </select>
+        </p>
+
+        <p><input type="submit" value="Сохранить" /></p>
+
+    </form>
+
+    <div id="hr"><hr></div>
+    
+    <h5>Всего @ViewBag.Count товаров на общую сумму @ViewBag.order.Amount рублей</h5>
+
+    <table>
+
+        <tr>
+            <td>Id товара</td>
+            <td>Название</td>
+            <td>Количество</td>
+        </tr>
+
+        <div id="hr"><hr></div>
+
+        @for (int i = 0; i< ViewBag.Items.Count; i++)
+        {
+            <tr>
+                <td>@ViewBag.Items[i].Id</td>
+                <td><a href="/Catalogs/ItemInfo/@ViewBag.Items[i].Id">@ViewBag.Items[i].Name</a></td>
+                <td>@ViewBag.Amounts[i]</td>
+            </tr>
+        }
+
+    </table>
+
+    <div id="hr"><hr></div>
+
+    <table>
+        <tr>
+            <td>Адрес доставки:</td>
+            <td>@ViewBag.order.Address</td>
+        </tr>
+        
+        
+        <tr>
+            <td>Комментарий:</td>
+            <td>@ViewBag.order.Comment</td>
+        </tr>
+        
+    </table>
+</body>
+
+

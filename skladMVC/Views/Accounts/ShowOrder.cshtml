@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Просмотр заказа";
+}
+
+<body>
+
+    <h2>Просмотр Заказа #@ViewBag.Order.Id</h2>
+
+    <div id="hr"><hr></div>
+
+    <h5>Всего @ViewBag.Count товаров на общую сумму @ViewBag.order.Amount рублей</h5>
+
+    <table>
+        <tr>
+            <td>Id товара</td>
+            <td>Название</td>
+            <td>Количество</td>
+        </tr>
+
+        <div id="hr"><hr></div>
+
+        @for (int i = 0; i < ViewBag.Items.Count; i++)
+        {
+            <tr>
+                <td>@ViewBag.Items[i].Id</td>
+                <td><a href="/Catalogs/ItemInfo/@ViewBag.Items[i].Id">@ViewBag.Items[i].Name</a></td>
+                <td>@ViewBag.Amounts[i]</td>
+            </tr>
+        }
+
+    </table>
+
+</body>
+
+

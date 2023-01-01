@@ -1,0 +1,29 @@
+﻿@model skladMVC.Models.Order
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<body>
+
+    <a href="/Admin/AddMaterial">Добавить материал</a>
+
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+        </tr>
+
+        @foreach (Material mat in ViewBag.Materials)
+        {
+            <tr>
+                <td>@mat.Id</td>
+                <td>@mat.Name</td>
+                <td><a href="/Admin/EditMaterial/@mat.Id">Изменить</a></td>
+                <td><a href="/Admin/DeleteMaterial/@mat.Id">Удалить</a></td>
+            </tr>
+        }
+
+    </table>
+
+</body>
+

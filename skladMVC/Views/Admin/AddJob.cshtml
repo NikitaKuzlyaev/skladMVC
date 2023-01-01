@@ -1,0 +1,33 @@
+﻿@{
+     ViewData["Title"] = "Добавить вакансию";
+}
+
+
+<body>
+    <h2>Добавление вакансии</h2>
+
+    <form method="post">
+
+        <table>
+            <tr>
+                <td>Название вакансии:</td>
+                <td><input type="text" name="Name" minlength="1" required></td>
+            </tr>
+
+            <tr>
+                <td>Описание:</td>
+                <td><input type="text" name="Description"></td>
+            </tr>
+
+            <tr>
+                <td>Ссылка на изображение:</td>
+                <td><input type="text" name="Logo"></td>
+            </tr>
+         
+            <p><td><input type="submit" value="Продолжить" /></td></p>
+
+        </table>
+
+    </form>
+
+</body>

@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Вакансии";
+}
+
+<body>
+
+    <h2>Вакансии</h2>
+
+    @if (ViewBag.Role == "admin")
+    {
+        <td><a href="/Admin/AddJob">Создать вакансию</a></td>
+    }
+
+    @foreach (Job job in ViewBag.JobList){
+
+        <div id="parent">
+            <div id="wide_2">
+                <img style="width: 30%;" src=@job.Logo alt=@job.Name>
+            </div>
+
+            <div id="narrow_2">
+                <p><b>@job.Name</b></p>
+                <p> @job.Description</p>
+                @if (ViewBag.Role == "admin")
+                {
+                    <td><a href="/Admin/EditJob/@job.Id">Редактировать</a></td>
+                    <td><a href="/Admin/DeleteJob/@job.Id">Удалить</a></td>
+                }
+            </div>
+
+        </div>
+
+        <p></p>
+    }
+    <div id="hr"><hr></div>
+
+</body>

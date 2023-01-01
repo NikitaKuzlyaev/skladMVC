@@ -1,0 +1,87 @@
+﻿@model skladMVC.Models.Order
+@{
+     ViewData["Title"] = "Home Page";
+}
+
+
+<body>
+    
+    <div id="parent">
+        <div id="wide">
+
+            <h2>О компании "Sklad"</h2>
+
+            <div id="parent">
+                <div id="wide_2">
+                    <img style="width: 85%;" src="https://i.ibb.co/H4fzmtT/Screenshot-7.png" alt="Screenshot-7">
+                </div>
+
+                <div id="narrow_2">
+                    Компания "Sklad" начинает своб историю в 2022 году с открытия первого склада в Сибири, в городе Томск. Первым зданием склада
+                    был арендованый ангар общей площадью 210 м^2.
+                </div>
+            </div>
+
+            <p></p>
+
+            <div id="parent">
+                <div id="wide_3">
+                    В настоящий момент компания имеет 3 склада в томской области: в городе Томск, в городах Асино и Северск. Рабочий состав насчитывает
+                    более 400 человек.
+                </div>
+
+                <div id="narrow_3">
+                    <img style="width: 85%;" src="https://i.ibb.co/T1HQjTt/Screenshot-8.png" alt="Screenshot-7">
+                </div>
+            </div>
+
+            <p></p>
+
+            <div id="parent">
+                <div id="wide_2">
+                    <img style="width: 85%;" src="https://i.ibb.co/t35ZPmk/Screenshot-9.png" alt="Screenshot-9">
+                </div>
+
+                <div id="narrow_2">
+                    За первый квартал 2022 года команией было транспортировано более 500 тонн древисины. Материально техническая база
+                    компании постоянно растет, увеличивается количество заказов, число довольных заказчиков растет с каждым днем.                
+                </div>
+            </div>
+
+            <p></p>
+
+        </div>
+
+
+        <div id="narrow">
+            <h5>Проверить заказ</h5>
+
+            <form asp-action="CheckOrder" asp-controller="home">
+                <p>
+                    <label asp-for="Id">Номер заказа</label><br />
+                    <input type="text" asp-for="Id" />
+                </p>
+                <p>
+                    <input type="submit" value="Проверить" />
+                </p>
+            </form>
+
+        </div>
+    </div>
+
+    <div id="hr"><hr></div>
+    
+    @if (ViewBag.Role == "admin")
+    {
+        <table>
+            <tr>
+                <td><a href="/Admin/Statuses">Статусы</a></td>
+                <td><a href="/Admin/Materials">Материалы</a></td>
+                <td><a href="/Admin/AllOrders">Заказы</a></td>
+            </tr>
+        </table>
+    }
+
+</body>
+
+                

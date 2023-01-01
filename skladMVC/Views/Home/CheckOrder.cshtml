@@ -1,0 +1,22 @@
+﻿@model skladMVC.Models.Order
+@{
+    ViewData["Title"] = "Проверка заказа";
+}
+
+
+<body>
+
+    <div id="hr"><hr></div>
+
+    @if (ViewBag.Order == null)
+    {
+        <p>Заказ не найден</p>
+    }
+    else
+    {
+        <h3>Заказ #@ViewBag.Order.Id</h3>
+        <p>Сумма заказа @ViewBag.Order.Amount</p>
+        <p>Статус: <b>@ViewBag.OrderName</b></p>
+    }
+
+</body>

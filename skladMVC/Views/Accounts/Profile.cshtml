@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewData["Title"] = "Профиль";
+}
+
+
+<body>
+
+    <h3>Мой профиль</h3>
+
+    <div id="parent">
+        <div id="wide_2">
+
+        </div>
+
+        <div id="narrow_2">
+            <p><b>Имя пользователя:</b> @ViewBag.User.Name</p>
+            <p><b>Почта:</b>@ViewBag.User.Email</p>
+        </div>
+
+    </div>
+
+    <h4>Мои заказы</h4>
+    
+    <table>
+        <tr>
+            <td>Id Заказа</td>
+            <td>Сумма заказа</td>
+            <td>Статус</td>
+        </tr>
+
+        @for (int i = 0; i < ViewBag.Orders.Count; i++)
+        {
+            <tr>
+                <td>@ViewBag.Orders[@i].Id</td>
+                <td>@ViewBag.Orders[@i].Amount</td>
+                <td>@ViewBag.statusList[@ViewBag.Orders[@i].StatusId].Name</td>
+
+                <td><a href="/Accounts/ShowOrder/@ViewBag.Orders[@i].Id">Cмотреть заказ</a></td>
+                <td><a href="/Accounts/CancelOrder/@ViewBag.Orders[@i].Id">Отменить заказ</a></td>
+
+            </tr>
+        }
+
+    </table>
+
+</body>
+

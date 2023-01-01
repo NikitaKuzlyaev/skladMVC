@@ -1,0 +1,68 @@
+﻿@{
+    ViewData["Title"] = "Корзина";
+}
+
+
+<body>
+
+    <div id="hr"><hr></div>
+
+    <h4>Моя корзина</h4>
+    <h5>Всего @ViewBag.Count товаров на общую сумму @ViewBag.Sum рублей</h5>
+
+    <div id="hr"><hr></div>
+
+    <div id="parent">
+        <div id="wide">
+
+            @if (ViewBag.Items.Count == 0)
+            {
+                <h4>Товары не найдены :(</h4>
+            }
+            else
+            {
+                @foreach (CartItem ci in ViewBag.itemsInCart)
+                {
+                    foreach (Item it in ViewBag.items)
+                    {
+                        if (ci.ItemId == it.Id)
+                        {
+                            <div id="parent2">
+                                <div id="logo">
+                                    <img style="width: 100%; height:auto; max-height:100px" src='@it.Logo' alt='Logo.png' />
+                                </div>
+
+                                <div id="name">
+                                    <div id="divtworow_1">
+                                        <a style="font-family:fantasy" ; href="/Catalogs/ItemInfo/@it.Id">@it.Name</a>
+                                    </div>
+
+                                    <div id="divtworow_2">
+                                        @ci.Amount * @it.Cost = <b>@(ci.Amount * it.Cost) Рублей</b>
+                                    </div>
+                                </div>
+
+                                <div id="dicription">
+                                    @if (true)
+                                    {
+                                        <a href="/Accounts/ChangeCartItem/@it.Id">Изменить</a>
+                                        <br>
+                                        <a href="/Accounts/ChangeCartItem/@it.Id/0">Удалить</a>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }             
+                }
+            }
+
+        </div>
+    </div>
+
+    @if (ViewBag.Items.Count != 0)
+    {
+        <p><a href="/Accounts/ConfirmCart">Оформить заказ</a></p>
+    }
+
+</body>
+

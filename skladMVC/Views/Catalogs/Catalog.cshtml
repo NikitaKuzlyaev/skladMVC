@@ -1,0 +1,294 @@
+﻿@{
+    ViewData["Title"] = "Каталог";
+}
+
+<body>
+
+    <div id="container">
+
+        @if (ViewBag.Catalogs.Count != 0)
+        {
+            <h2>Каталог товаров</h2>
+
+            @for (int row = 0; row<(ViewBag.Catalogs.Count + 3) / 4; row++)
+            {
+                <div class="flex-container">
+                @for (int col = 0; col<4; col++)
+                {
+                    @if (ViewBag.Catalogs.Count <= row * 4 + col)
+                    {
+                        break;
+                    }
+                    <div class="flex-item">
+                        <div style="height: 80%"> <a href="/Catalogs/Catalog/@ViewBag.Catalogs[row*4 + col].Id"> <img style="height: 100%" src='@ViewBag.Catalogs[row*4 + col].Logo' alt='Logo.png' /></a></div>
+                        <div><a style="font-family:fantasy; href="/Catalogs/Catalog/@ViewBag.Catalogs[row*4 + col].Id">@ViewBag.Catalogs[row*4 + col].Name</a></div>
+                    </div>
+                }
+                </div>
+            }
+
+            @if (ViewBag.Role == "admin")
+            {
+                <table>
+                    @foreach (Catalog catl in ViewBag.Catalogs)
+                    {
+                        <tr>
+                            <td><a href="/Catalogs/Catalog/@catl.Id">@catl.Id @catl.Name</a> </td>
+                            @if (ViewBag.Role == "admin")
+                            {
+                                <td><a href="/Catalogs/DeleteCatalog/@catl.Id">Удалить этот каталог</a> </td>
+                            }
+                        </tr>
+                    }
+                </table>
+                <div id="hr"><hr></div>
+            }
+        }
+
+        
+        <div id="hr"><hr></div>
+
+        @if (ViewBag.Items.Count == 0 && ViewBag.Catalogs.Count != 0)
+        { }
+        else
+        {
+            <h3>Товары в каталоге</h3>
+
+            <div id="parent">
+
+                <div id="wide">
+
+                    @if (ViewBag.Items.Count == 0)
+                    {
+                        <h4>Товары не найдены :(</h4>
+                    }
+                    else
+                    {
+                        @foreach (Item item in ViewBag.Items)
+                        {       
+                            <div id="parent2">
+                                <div id="logo">
+                                    <img style="width: 100%; height:auto; max-height:100px" src='@item.Logo' alt='Logo.png' />
+                                </div>
+
+                                <div id="name">
+                                    <div id="divtworow_1">
+                                        <a style="font-family:fantasy"; href="/Catalogs/ItemInfo/@item.Id">@item.Name</a>
+                                    </div>
+
+                                    <div id="divtworow_2">
+                                        @item.Cost Рублей <br> В наличии @item.Quantity 
+                                    </div>
+                                </div>
+
+                                <div id="dicription">
+                                    @if (item.Flag == "wood")
+                                    {
+                                        <p style="height: 50%">Сорт: @item.Quality <br> Material: @ViewBag.MaterialList[item.MaterialId].Name <br> Сторона a: @item.Width <br> Сторона b: @item.Length</p>
+                                    }
+                                    else
+                                    {
+                                        <p style="height: 50%">Сторона a: @item.Width <br> Сторона b: @item.Length <br> Сторона c: @item.Height</p>
+                                    }
+                                </div>
+                            </div>
+
+                            @if (ViewBag.Role == "admin")
+                            {
+                                <a href="/Catalogs/ChangeItem/@item.Id">Изменить</a>
+                                <a href="/Catalogs/DeleteItem/@item.Id">Удалить</a>
+                            }
+                        }
+                        
+                    }
+
+                </div>
+
+                @if (ViewBag.OnlyItems)
+                {
+                    <div id="narrow">
+
+                        <form method="post">
+                        <p>
+                            <label for="MaterialSelected">Материал:</label>
+                            <select id="MaterialSelected" name="MaterialSelected">
+                                @if (ViewBag.Last_MaterialSelected == -1)
+                                {
+                                    <option value=0 selected>Любой</option>
+                                }
+                                else
+                                {
+                                    <option value=0>Любой</option>
+                                }
+                                @foreach (Material material in ViewBag.Materials)
+                                {
+                                    @if (ViewBag.Last_MaterialSelected == material.Id)
+                                    {
+                                        <option value=@material.Id selected>@material.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value=@material.Id>@material.Name</option>
+                                    }
+                                }
+                            </select>
+                        </p>
+
+                        <p>
+                            <label for="QualityMin">Сорт от </label>
+                            <select id="QualityMin" name="QualityMin">
+                                @for (int i = 0; i <= 3; i++)
+                                {
+                                    @if (ViewBag.Last_QualityMin == i)
+                                    {
+                                        <option value=@i selected>@i</option>
+                                    }
+                                    else
+                                    {
+                                        <option value=@i>@i</option>
+                                    }
+                                }
+                            </select>
+
+                            <label for="QualityMax">Сорт до </label>
+                            <select id="QualityMax" name="QualityMax">
+                                @for (int i = 0; i <= 3; i++)
+                                {
+                                    @if (ViewBag.Last_QualityMax == i)
+                                    {
+                                        <option value=@i selected>@i</option>
+                                    }
+                                    else
+                                    {
+                                        <option value=@i>@i</option>
+                                    }
+                                }
+                            </select>
+
+                        </p>
+
+                        <p>Стоимость</p>
+                        <p>
+                            <label for="CostMin"></label>
+                            <input type="number" min="0" max="999999" step="1" value="@ViewBag.Last_CostMin" name="CostMin" placeholder="От" />
+                            <label for="CostMax"></label>
+                            <input type="number" min="0" max="999999" step="1" value="@ViewBag.Last_CostMax" name="CostMax" placeholder="До" />
+                        </p>
+
+
+                        <p>В наличии</p>
+                        <p>
+                            @if(ViewBag.Amount == "YesOrNo")
+                            {
+                                <input checked="checked" name="Amount" type="radio" value="YesOrNo" />
+                                <span>Любой</span> <br />
+                            }
+                            else
+                            {
+                                <input name="Amount" type="radio" value="YesOrNo" />
+                                <span>Любой</span> <br />
+                            }
+
+                            @if (ViewBag.Amount == "Yes")
+                            {
+                                <input checked="checked" name="Amount" type="radio" value="Yes" />
+                                <span>Да</span> <br />
+                            }
+                            else
+                            {
+                                <input name="Amount" type="radio" value="Yes" />
+                                <span>Да</span> <br />
+                            }
+                                
+                            @if (ViewBag.Amount == "No")
+                            {
+                                <input checked="checked" name="Amount" type="radio" value="No" />
+                                <span>Нет</span> <br />
+                            }
+                            else
+                            {
+                                <input name="Amount" type="radio" value="No" />
+                                <span>Нет</span> <br />
+                            }
+                        </p>
+
+                        <p><input type="submit" value="Применить" /></p>
+                        </form>
+
+                    </div>
+                }
+                else
+                {
+                    <div id="narrow">
+
+                        <form method="post">
+                            <p>Стоимость</p>
+                            <p>
+                                <label for="CostMin"></label>
+                                <input type="number" min="0" max="999999" step="1" value="@ViewBag.Last_CostMin" name="CostMin" placeholder="От" />
+                                <label for="CostMax"></label>
+                                <input type="number" min="0" max="999999" step="1" value="@ViewBag.Last_CostMax" name="CostMax" placeholder="До" />
+                            </p>
+
+
+                            <p>В наличии</p>
+                            <p>
+                                @if (ViewBag.Amount == "YesOrNo")
+                                {
+                                    <input checked="checked" name="Amount" type="radio" value="YesOrNo" />
+                                    <span>Любой</span> <br />
+                                }
+                                else
+                                {
+                                    <input name="Amount" type="radio" value="YesOrNo" />
+                                    <span>Любой</span> <br />
+                                }
+
+                                @if (ViewBag.Amount == "Yes")
+                                {
+                                    <input checked="checked" name="Amount" type="radio" value="Yes" />
+                                    <span>Да</span> <br />
+                                }
+                                else
+                                {
+                                    <input name="Amount" type="radio" value="Yes" />
+                                    <span>Да</span> <br />
+                                }
+
+                                @if (ViewBag.Amount == "No")
+                                {
+                                    <input checked="checked" name="Amount" type="radio" value="No" />
+                                    <span>Нет</span> <br />
+                                }
+                                else
+                                {
+                                    <input name="Amount" type="radio" value="No" />
+                                    <span>Нет</span> <br />
+                                }
+                            </p>
+
+                            <p><input type="submit" value="Применить" /></p>
+
+                        </form>
+
+                     </div>
+                }
+
+            </div>
+      
+            <div id="hr"><hr></div>
+        }
+        
+
+        @if (ViewBag.Role == "admin")
+        {
+            <p><a href="/Catalogs/AddCatalog/@ViewBag.CurDirId">Добавить каталог</a></p>
+            <p><a href="/Catalogs/ChangeCatalog/@ViewBag.CurDirId">Изменить каталог</a></p>
+            <p><a href="/Catalogs/AddItem/@ViewBag.CurDirId/item">Добавить товар (изделие)</a></p>
+            <p><a href="/Catalogs/AddItem/@ViewBag.CurDirId/wood">Добавить товар (дерево)</a></p>
+        }
+
+    </div>
+
+</body>
+

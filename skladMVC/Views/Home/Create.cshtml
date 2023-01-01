@@ -1,0 +1,12 @@
+﻿@model skladMVC.Models.Item
+
+<h2>Добавление пользователя</h2>
+<form asp-action="create" asp-controller="home">
+    <p>
+        <label asp-for="MaterialId">id Материала</label><br />
+        <input type="text" asp-for="MaterialId" />
+    </p>
+    <p>
+        <input type="submit" value="Отправить" />
+    </p>
+</form>

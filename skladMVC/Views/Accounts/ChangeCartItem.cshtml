@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Корзина";
+}
+
+
+<body>
+
+    <div id="hr"><hr></div>
+
+    <h4>Изменить товар</h4>
+    <h5>@ViewBag.item.Name</h5>
+
+    <div id="hr"><hr></div>
+
+
+    <div id="parent">
+        <div id="wide">
+            
+            <div id="parent2">
+                <div id="logo">
+                    <img style="width: 100%; height:auto; max-height:100px" src='@ViewBag.item.Logo' alt='Logo.png' />
+                </div>
+
+                <div id="name">
+                    <div id="divtworow_1">
+                        <a style="font-family:fantasy" ; href="/Catalogs/ItemInfo/@ViewBag.item.Id">@ViewBag.item.Name</a>
+                    </div>
+                </div>  
+                
+            </div>
+                    
+            
+            <form method="post">
+
+                <table>
+                    <tr>
+                        <td><input type="text" name="curDirId" value="@ViewBag.itemId" hidden></td>
+                    </tr>
+
+                    <tr>
+                        <td>Новое количество</td>
+                        <td><input type="number" min="0" max=@ViewBag.item.Quantity value="@ViewBag.cartItem.Amount" step="1" name="newAmount" /></td>
+                    </tr>
+                </table>
+
+                <p><td><input type="submit" value="Продолжить" /></td></p>
+
+            </form>
+
+        </div>
+    </div>
+
+</body>
+

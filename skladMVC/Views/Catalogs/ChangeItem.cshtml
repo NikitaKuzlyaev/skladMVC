@@ -1,0 +1,97 @@
+﻿@{
+    ViewData["Title"] = "Изменение товара";
+}
+
+
+<body>
+
+    <form method="post">
+
+        <table>
+
+            <tr>
+                <td>Название товара:</td>
+                <td><input type="text" name="Name" value="@ViewBag.item.Name" minlength="1" required></td>
+            </tr>
+
+            <tr>
+                <td>Ссылка на изображение:</td>
+                <td><input type="text" name="Logo" value="@ViewBag.item.Logo"></td>
+            </tr>
+
+            <tr>
+                <td>Стоимость</td>
+                <td><input type="number" min="0" max="10000000" step="0.01" name="Cost" value="@ViewBag.item.Cost" /></td>
+            </tr>
+
+            <tr>
+                <td>Количество на складе</td>
+                <td><input type="number" min="0" max="10000000" step="1" name="Quantity" value="@ViewBag.item.Quantity" /></td>
+            </tr>
+
+
+            @if (ViewBag.Flag == "wood")
+            {
+                <tr>
+                    <p>
+                        <label for="MaterialId">Материал:</label>
+                        <select id="MaterialId" name="MaterialId">
+                            @foreach (Material mat in ViewBag.MaterialList)
+                            {
+                                if (ViewBag.item.MaterialId == mat.Id)
+                                {<option value=@mat.Id selected>@mat.Name</option>}
+                                else
+                                {<option value=@mat.Id>@mat.Name</option>}  
+                            }
+                        </select>
+                    </p>
+                </tr>
+
+                <tr>
+                    <td>Сторона a</td>
+                    <td><input type="number" min="0" max="1000" step="1" name="Width" value="@ViewBag.item.Width" /></td>
+                </tr>
+
+                <tr>
+                    <td>Сторона b</td>
+                    <td><input type="number" min="0" max="1000" step="1" name="Length" value="@ViewBag.item.Length" /></td>
+                </tr>
+
+                <tr>
+                    <td>Сорт</td>
+                    <td><input type="number" min="0" max="3" step="1" name="Quality" value="@ViewBag.item.Quality" /></td>
+                </tr>
+
+            }
+            else
+            {
+                <tr>
+                    <td>Сторона a</td>
+                    <td><input type="number" min="0" max="1000" step="1" name="Height" value="@ViewBag.item.Height"/></td>
+                </tr>
+
+                <tr>
+                    <td>Сторона b</td>
+                    <td><input type="number" min="0" max="1000" step="1" name="Width" value="@ViewBag.item.Width"/></td>
+                </tr>
+
+                <tr>
+                    <td>Сторона c</td>
+                    <td><input type="number" min="0" max="1000" step="1" name="Length" value="@ViewBag.item.Length" /></td>
+                </tr>
+            }
+
+            <tr>
+                <td>Описание товара</td>
+                <td><input type="text" name="Description" value="@ViewBag.item.Description" /></td>
+            </tr>
+
+        </table>
+
+        <p><td><input type="submit" value="Продолжить" /></td></p>
+
+    </form>
+
+</body>
+
+

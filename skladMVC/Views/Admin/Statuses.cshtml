@@ -1,0 +1,27 @@
+﻿@model skladMVC.Models.Order
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<body>
+   
+    <a href="/Admin/AddStatus">Добавить статус</a>
+
+    <table>
+        <tr><td>Id</td><td>Name</td></tr>
+
+        @foreach (Status status in ViewBag.Statuses)
+        {
+            <tr>
+                <td>@status.Id</td>
+                <td>@status.Name</td>
+                <td><a href="/Admin/EditStatus/@status.Id">Изменить</a></td>
+                <td><a href="/Admin/DeleteStatus/@status.Id">Удалить</a></td>
+            </tr>
+        }
+
+    </table>
+
+</body>
+

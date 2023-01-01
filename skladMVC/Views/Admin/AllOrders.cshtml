@@ -1,0 +1,29 @@
+﻿@model skladMVC.Models.Order
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<body>
+
+    <div id="hr"><hr></div>
+
+    <table>
+        <tr><td>Id</td><td>Пользователь Id</td><td>Сумма заказа</td><td>Статус</td></tr>
+
+        @for (int i = 0; i < ViewBag.Orders.Count; i++){
+            <tr>
+                <td>@ViewBag.Orders[@i].Id</td>
+                <td>@ViewBag.Users[@i].Email</td>
+                <td>@ViewBag.Orders[@i].Amount</td>
+                <td>@ViewBag.Statuses[@i].Name</td>
+
+                <td><a href="/Admin/EditOrder/@ViewBag.Orders[@i].Id">Cмотреть заказ</a></td>
+                <td><a href="/Admin/CancelOrder/@ViewBag.Orders[@i].Id">Отменить заказ</a></td>
+               
+            </tr>
+        }
+
+    </table>
+
+</body>
+

@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Редактирование материала";
+}
+
+
+<body>
+
+    <h2>Редактирование материала</h2>
+
+    <form method="post">
+
+        <table>
+            <tr>
+                <td>Название материала:</td>
+                <td><input type="text" name="Name" value="@ViewBag.Material.Name" minlength="1" required></td>
+            </tr>
+
+            <p>
+                <td><input type="submit" value="Сохранить" /></td>
+            </p>
+
+        </table>
+
+    </form>
+
+</body>
+
+
